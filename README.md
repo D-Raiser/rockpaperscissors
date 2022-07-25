@@ -1,8 +1,7 @@
 # rockpaperscissors
+
 Rock-Paper-Scissors implementation in Kotlin
 
-Run with `mvn clean compile exec:java`
+Run with `./gradlew run`
 
-Run tests with `mvn clean test`
-
-Test coverage can be measured with `mvn clean verify` which creates saves the results under `target/site/jacoco/`
+Run tests with `./gradlew test` which also creates a coverage report under `build/reports/jacoco/test/html/index.html`
