@@ -3,7 +3,6 @@ import kotlin.random.Random
 
 const val games = 100
 
-// run `mvn clean compile exec:java`
 fun main() {
     val player1Strategy = RandomStrategy(Random(Clock.systemUTC().millis()))
     val player2Strategy = StaticStrategy(Action.ROCK)

@@ -6,7 +6,6 @@ import org.mockito.kotlin.mock
 import kotlin.random.Random
 import kotlin.test.Test
 
-// run `mvn clean test`
 class GameTest {
     private val cases = listOf(
         Pair(Action.PAPER, Action.PAPER) to Result.DRAW,
