@@ -8,21 +8,21 @@ import kotlin.test.Test
 
 class GameTest {
     private val cases = listOf(
-        Pair(Action.PAPER, Action.PAPER) to Result.DRAW,
-        Pair(Action.PAPER, Action.ROCK) to Result.WIN,
-        Pair(Action.PAPER, Action.SCISSOR) to Result.LOSS,
-        Pair(Action.ROCK, Action.PAPER) to Result.LOSS,
-        Pair(Action.ROCK, Action.ROCK) to Result.DRAW,
-        Pair(Action.ROCK, Action.SCISSOR) to Result.WIN,
-        Pair(Action.SCISSOR, Action.PAPER) to Result.WIN,
-        Pair(Action.SCISSOR, Action.ROCK) to Result.LOSS,
-        Pair(Action.SCISSOR, Action.SCISSOR) to Result.DRAW,
+        Pair(Action.PAPER, Action.PAPER) to MatchResult.DRAW,
+        Pair(Action.PAPER, Action.ROCK) to MatchResult.WIN,
+        Pair(Action.PAPER, Action.SCISSOR) to MatchResult.LOSS,
+        Pair(Action.ROCK, Action.PAPER) to MatchResult.LOSS,
+        Pair(Action.ROCK, Action.ROCK) to MatchResult.DRAW,
+        Pair(Action.ROCK, Action.SCISSOR) to MatchResult.WIN,
+        Pair(Action.SCISSOR, Action.PAPER) to MatchResult.WIN,
+        Pair(Action.SCISSOR, Action.ROCK) to MatchResult.LOSS,
+        Pair(Action.SCISSOR, Action.SCISSOR) to MatchResult.DRAW,
     )
 
     @TestFactory
     fun testPlay() = cases.map { (input, expected) ->
         DynamicTest.dynamicTest("${input.first} vs ${input.second} should produce $expected") {
-            Assertions.assertEquals(expected, play(input.first, input.second))
+            Assertions.assertEquals(expected, playMatch(input.first, input.second))
         }
     }
 
@@ -30,7 +30,7 @@ class GameTest {
     // testing the overloaded variant of `play()` the same way the original was tested via `StaticStrategy`
     fun testPlayStrategies() = cases.map { (input, expected) ->
         DynamicTest.dynamicTest("${input.first} vs ${input.second} should produce $expected") {
-            Assertions.assertEquals(expected, play(StaticStrategy(input.first), StaticStrategy(input.second)))
+            Assertions.assertEquals(expected, playMatch(StaticStrategy(input.first), StaticStrategy(input.second)))
         }
     }
 
@@ -57,6 +57,21 @@ class GameTest {
         for (i in 1..1000) {
             Assertions.assertEquals(actions[rnd], strategy.getNextAction(), "actions didn't match for index $rnd")
             rnd = (rnd + 1) % actions.size
+        }
+    }
+
+    @TestFactory
+    fun testPlayGame() = listOf(
+        Pair(Action.ROCK, Action.ROCK) to GameResults(0, 0, 0),
+        Pair(Action.ROCK, Action.ROCK) to GameResults(100, 0, 0),
+        Pair(Action.ROCK, Action.SCISSOR) to GameResults(200, 200, 0),
+        Pair(Action.ROCK, Action.PAPER) to GameResults(300, 0, 300)
+    ).map { (input, expected) ->
+        DynamicTest.dynamicTest("playing StaticStrategy(${input.first}) vs StaticStrategy(${input.second}) ${expected.rounds} times should result in ${expected.player1wins} wins and ${expected.draws} draws for player 1") {
+            Assertions.assertEquals(
+                expected,
+                playGame(StaticStrategy(input.first), StaticStrategy(input.second), expected.rounds)
+            )
         }
     }
 }
