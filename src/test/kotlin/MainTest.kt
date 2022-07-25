@@ -15,7 +15,9 @@ class MainTest {
         Pair(Action.SCISSOR, Action.PAPER) to Result.WIN,
         Pair(Action.SCISSOR, Action.ROCK) to Result.LOSS,
         Pair(Action.SCISSOR, Action.SCISSOR) to Result.DRAW,
-    ).map { (input, expected) -> DynamicTest.dynamicTest("${input.first} vs ${input.second} should produce $expected") {
-        Assertions.assertEquals(expected, play(input.first, input.second))
-    } }
+    ).map { (input, expected) ->
+        DynamicTest.dynamicTest("${input.first} vs ${input.second} should produce $expected") {
+            Assertions.assertEquals(expected, play(input.first, input.second))
+        }
+    }
 }

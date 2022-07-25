@@ -9,15 +9,15 @@ enum class Action {
 }
 
 // run `mvn exec:java`
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun main() {}
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
-}
-
-// retuns the result of playing `action1` vs `action2` from the perspective of `action1`
-fun play( action1: Action, action2: Action) : Result {
-    TODO()
+// returns the result of playing `action1` vs `action2` from the perspective of `action1`
+fun play(action1: Action, action2: Action): Result {
+    if (action1 == action2) return Result.DRAW
+    val wins = when (action1) {
+        Action.ROCK -> action2 == Action.SCISSOR
+        Action.PAPER -> action2 == Action.ROCK
+        Action.SCISSOR -> action2 == Action.PAPER
+    }
+    return if (wins) Result.WIN else Result.LOSS
 }
