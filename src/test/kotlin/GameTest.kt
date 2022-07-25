@@ -67,7 +67,10 @@ class GameTest {
         Pair(Action.ROCK, Action.SCISSOR) to GameResults(200, 200, 0),
         Pair(Action.ROCK, Action.PAPER) to GameResults(300, 0, 300)
     ).map { (input, expected) ->
-        DynamicTest.dynamicTest("playing StaticStrategy(${input.first}) vs StaticStrategy(${input.second}) ${expected.rounds} times should result in ${expected.player1wins} wins and ${expected.draws} draws for player 1") {
+        DynamicTest.dynamicTest(
+            "StaticStrategy(${input.first}) vs StaticStrategy(${input.second}) " +
+                    "${expected.rounds} times should result in ${expected.player1wins} wins and ${expected.draws} draws for player 1"
+        ) {
             Assertions.assertEquals(
                 expected,
                 playGame(StaticStrategy(input.first), StaticStrategy(input.second), expected.rounds)

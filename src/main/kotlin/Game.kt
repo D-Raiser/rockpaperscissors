@@ -23,9 +23,7 @@ fun playGame(player1Strategy: Strategy, player2Strategy: Strategy, rounds: Int):
         when (playMatch(player1Strategy, player2Strategy)) {
             MatchResult.WIN -> player1wins++
             MatchResult.LOSS -> player2wins++
-            else -> {
-                // do nothing
-            }
+            else -> {} // do nothing
         }
     }
 
