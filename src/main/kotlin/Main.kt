@@ -1,8 +1,7 @@
-import java.time.Clock
 import kotlin.random.Random
 
 fun main() {
-    val player1Strategy = RandomStrategy(Random(Clock.systemUTC().millis()))
+    val player1Strategy = RandomStrategy(Random.Default)
     val player2Strategy = StaticStrategy(Action.ROCK)
 
     val gameResult = playGame(player1Strategy, player2Strategy, 100);
