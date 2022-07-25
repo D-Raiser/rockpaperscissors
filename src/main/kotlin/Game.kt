@@ -13,13 +13,13 @@ enum class Action {
 }
 
 data class GameResults(val rounds: Int, val player1wins: Int, val player2wins: Int) {
-    val draws = rounds - player1wins - player2wins;
+    val draws = rounds - player1wins - player2wins
 }
 
 fun playGame(player1Strategy: Strategy, player2Strategy: Strategy, rounds: Int): GameResults {
     var player1wins = 0
     var player2wins = 0
-    for (i in 1..rounds) {
+    repeat(rounds) {
         when (playMatch(player1Strategy, player2Strategy)) {
             MatchResult.WIN -> player1wins++
             MatchResult.LOSS -> player2wins++
@@ -49,8 +49,5 @@ class StaticStrategy(private val action: Action) : Strategy {
 }
 
 class RandomStrategy(private val random: Random) : Strategy {
-    override fun getNextAction(): Action {
-        val actions = Action.values()
-        return actions[random.nextInt(actions.size)]
-    }
+    override fun getNextAction(): Action = Action.values().random(random)
 }

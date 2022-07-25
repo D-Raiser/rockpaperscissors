@@ -36,7 +36,7 @@ class GameTest {
     fun testStaticStrategy() = Action.values().map { action ->
         DynamicTest.dynamicTest("Static strategy for $action should always return $action") {
             val strategy = StaticStrategy(action)
-            for (i in 1..1000) {
+            repeat(1000) {
                 Assertions.assertEquals(action, strategy.getNextAction())
             }
         }
