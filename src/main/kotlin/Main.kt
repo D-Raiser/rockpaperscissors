@@ -1,10 +1,7 @@
 import kotlin.random.Random
 
 fun main() {
-    val player1Strategy = RandomStrategy(Random)
-    val player2Strategy = StaticStrategy(Action.ROCK)
-
-    val gameResult = playGame(player1Strategy, player2Strategy, 100)
+    val gameResult = playGame(randomStrategy , { Action.ROCK }, 100)
 
     println("Played ${gameResult.rounds} games")
     println("Player 1 wins: ${gameResult.player1wins}")
